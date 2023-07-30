@@ -1,0 +1,4 @@
+name: ItemUtils
+version: '${project.version}'
+main: org.itemutils.ItemUtils
+api-version: '1.20'
