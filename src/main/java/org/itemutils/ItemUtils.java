@@ -3,7 +3,7 @@ package org.itemutils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ItemUtils extends JavaPlugin {

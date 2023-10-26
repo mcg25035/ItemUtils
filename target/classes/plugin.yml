@@ -1,0 +1,4 @@
+name: ItemUtils
+version: '1.0-SNAPSHOT'
+main: org.itemutils.ItemUtils
+api-version: '1.20'
