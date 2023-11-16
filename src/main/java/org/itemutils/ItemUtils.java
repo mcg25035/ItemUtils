@@ -1,12 +1,30 @@
 package org.itemutils;
 
+import com.saicone.rtag.RtagItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+
 public final class ItemUtils extends JavaPlugin {
+    private static Object[] pathProcess(String ... args){
+        Object[] objects = new Object[args.length];
+        int indx = 0;
+        for (String i : args){
+            if (i.matches("\\[[0-9]*\\]")){
+                objects[indx] = Integer.valueOf(i.replace("[","").replace("]",""));
+            }
+            else{
+                objects[indx] = i;
+            }
+            indx++;
+        }
+        return objects;
+    }
     public static org.bukkit.inventory.ItemStack nmsToBukkit(net.minecraft.world.item.ItemStack itemStack,boolean copyAmount){
         org.bukkit.inventory.ItemStack converted = CraftItemStack.asBukkitCopy(itemStack);
         if (!copyAmount){
@@ -71,6 +89,16 @@ public final class ItemUtils extends JavaPlugin {
     public static String getDescriptionID(org.bukkit.inventory.ItemStack itemStack){
         return bukkitToNMS(itemStack, false).getDescriptionId();
     }
+
+    public static Object itemGetNbtPath(org.bukkit.inventory.ItemStack itemStack, String path){
+        RtagItem tag = new RtagItem(itemStack);
+        return tag.get(pathProcess(path.split("\\.")));
+    }
+
+    public static void itemSetNbtPath(org.bukkit.inventory.ItemStack itemStack, String path, Object value){
+        (new RtagItem(itemStack)).set(value, pathProcess(path.split("\\.")));
+    }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
