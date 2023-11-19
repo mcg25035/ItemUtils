@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftItemStack;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -95,8 +96,10 @@ public final class ItemUtils extends JavaPlugin {
         return tag.get(pathProcess(path.split("\\.")));
     }
 
-    public static void itemSetNbtPath(org.bukkit.inventory.ItemStack itemStack, String path, Object value){
-        (new RtagItem(itemStack)).set(value, pathProcess(path.split("\\.")));
+    public static ItemStack itemSetNbtPath(org.bukkit.inventory.ItemStack itemStack, String path, Object value){
+        RtagItem item = new RtagItem(itemStack);
+        item.set(value, pathProcess(path.split("\\.")));
+        return item.loadCopy();
     }
 
     @Override
